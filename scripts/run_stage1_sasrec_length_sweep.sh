@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DATASETS="${DATASETS:-Beauty}"
+DATASETS="${DATASETS:-ML-1M}"
 LENGTHS="${LENGTHS:-50 100 200 500 1000}"
 SEEDS="${SEEDS:-2025}"
 GPU_ID="${GPU_ID:-0}"
