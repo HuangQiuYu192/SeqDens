@@ -1,0 +1,10 @@
+{
+  "dataset": "LastFM-S3Rec",
+  "users": 1090,
+  "items": 3646,
+  "interactions": 52551,
+  "avg_len": 48.21192660550459,
+  "min_len": 5,
+  "max_len": 899,
+  "sparsity_percent": 98.67767617648094
+}
