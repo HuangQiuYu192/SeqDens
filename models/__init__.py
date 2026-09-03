@@ -14,6 +14,7 @@ MODEL_MODULES = {
     "IDURL": "IDURL",
     "IOCRec": "IOCRec",
     "SASRec": "SASRec",
+    "SeqDensSASRec": "SeqDensSASRec",
     "WEARec": "WEARec",
 }
 

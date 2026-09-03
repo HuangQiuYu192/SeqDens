@@ -71,8 +71,13 @@ def add_cands_arguments(parser):
     parser.add_argument('--tail_cl_max_items', default=256, type=int)
 
 
+def add_seqdens_arguments(parser):
+    parser.add_argument('--compression_length', default=64, type=int)
+    parser.add_argument('--recent_length', default=32, type=int)
+
+
 def add_model_arguments(parser, base_model, dataset):
-    if base_model in {'SASRec', 'CANDSSASRec', 'CalibratedCANDSSASRec', 'LearnableTempCANDSSASRec', 'DataAwareTempCANDSSASRec', 'LinearItemCANDSSASRec', 'TailCLCalibratedCANDSSASRec'}:
+    if base_model in {'SASRec', 'SeqDensSASRec', 'CANDSSASRec', 'CalibratedCANDSSASRec', 'LearnableTempCANDSSASRec', 'DataAwareTempCANDSSASRec', 'LinearItemCANDSSASRec', 'TailCLCalibratedCANDSSASRec'}:
         parser.add_argument('--hidden_size', default=64, type=int)
         parser.add_argument('--n_layers', default=2, type=int)
         parser.add_argument('--n_heads', default=2, type=int)
@@ -83,6 +88,8 @@ def add_model_arguments(parser, base_model, dataset):
         parser.add_argument('--hidden_act', default='gelu', type=str)
         parser.add_argument('--layer_norm_eps', default=1e-12, type=float)
         parser.add_argument('--initializer_range', default=0.02, type=float)
+        if base_model == 'SeqDensSASRec':
+            add_seqdens_arguments(parser)
         if base_model in {'CANDSSASRec', 'CalibratedCANDSSASRec', 'LearnableTempCANDSSASRec', 'DataAwareTempCANDSSASRec', 'LinearItemCANDSSASRec', 'TailCLCalibratedCANDSSASRec'}:
             add_cands_arguments(parser)
     elif base_model == 'GRU4Rec':

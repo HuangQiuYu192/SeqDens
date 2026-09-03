@@ -7,7 +7,10 @@ from pathlib import Path
 
 
 RUN_PATTERN = re.compile(
-    r"(?P<dataset>.+?)_(?P<model>[^_]+)_L(?P<max_len>\d+)_seed(?P<seed>\d+)"
+    r"(?P<dataset>.+?)_(?P<model>[^_]+)_L(?P<max_len>\d+)"
+    r"(?:_H(?P<compression_length>\d+))?"
+    r"(?:_R(?P<recent_length>\d+))?"
+    r"_seed(?P<seed>\d+)"
 )
 
 
@@ -41,9 +44,11 @@ def parse_run_name(path):
             "dataset": "",
             "model": "",
             "max_len": "",
+            "compression_length": "",
+            "recent_length": "",
             "seed": "",
         }
-    return match.groupdict()
+    return {key: value or "" for key, value in match.groupdict().items()}
 
 
 def collect(log_dir):
@@ -72,7 +77,15 @@ def main():
 
     rows = collect(args.log_dir)
     fieldnames = sorted({key for row in rows for key in row})
-    priority = ["dataset", "model", "max_len", "seed", "log_file"]
+    priority = [
+        "dataset",
+        "model",
+        "max_len",
+        "compression_length",
+        "recent_length",
+        "seed",
+        "log_file",
+    ]
     fieldnames = priority + [key for key in fieldnames if key not in priority]
 
     output_path = Path(args.output) if args.output else None
